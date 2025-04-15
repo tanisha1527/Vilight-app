@@ -14,14 +14,14 @@ export const createUser = mutation({
 
      handler: async(ctx, args) => {
 
-        const existingUser = await ctx.db.query("Users")
+        const existingUser = await ctx.db.query("users")
         .withIndex("by_clerk_id", (q)=> q.eq("clerkId", args.clerkId))
         .first();
 
         if(existingUser) return;
         
         // create a user in db
-          await ctx.db.insert("Users", {
+          await ctx.db.insert("users", {
             username: args.username,
             fullname: args.fullname,
             email: args.email,
